@@ -8,3 +8,15 @@
 
 # Import Statements
 import Proj1Lib
+
+# define data structures to contain server objects
+
+# bind listener
+
+# loop to recieve from the client on specified port **
+
+# handle incoming packet
+
+# send correct SUCCESS packet to the user
+
+# end loop and await new packet **
