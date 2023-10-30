@@ -14,12 +14,17 @@ import time
 # define variables
 packetnum = 0
 server_addr = "127.0.0.1"                                       # Address of the server (currently set to loopback address)
-server_port = "4200"                                            # port of the server (generally unused port, must be reflected by the server)
+server_port = 4200                                              # port of the server (generally unused port, must be reflected by the server)
+recieve_size = 1024                                             # Size of the buffer for recieving responses
 
 # Establish Socket for sending - port number and IP assignment
-client_sock = socket(AF_INET, SOCK_STREAM)
+client_sock = socket(AF_INET, SOCK_STREAM)                      # Despite our protocol having many of the sequencing, and loss features of TCP we use a TCP socket anyway.
+client_sock.connect(server_addr, server_port)                   # Open a TCP connection with the server (using the provided address)
+client_sock.setblocking(0)                                      # Insists that the new socket uses stream data instead of block data
 
 # Send an Identify message to the user
+user_id = input("Please enter your user ID: ")
+IDmessage = Proj1Lib.GenIdentify(packetnum, user_id)            # generate the IDENTIFY message for the connection
 
 # Await response from the server
 
