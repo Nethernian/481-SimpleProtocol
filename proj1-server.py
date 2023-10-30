@@ -9,6 +9,9 @@
 # Import Statements
 import Proj1Lib
 
+# define variables
+server_port = "4200"                                            # generally unused port that the server can listen on.
+
 # define data structures to contain server objects
 
 # bind listener
