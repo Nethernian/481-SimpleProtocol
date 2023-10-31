@@ -35,7 +35,6 @@ user_ID = input("Please Input your User ID: ")                  # Prompt the use
 IDmsg = Proj1Lib.GenIdentify(packetnum, user_ID)                # Generate an IDENTIFY message
 client_sock.send(IDmsg.encode())                                # Send an Identity message
 time.sleep(0.1)                                                 # Await Server Response
-
 while True:
     try:
         success = client_sock.recv(recieve_size)
@@ -60,12 +59,10 @@ while loop_ctrl == True:
         ev_date = input("Event Date: ")
         ev_loc = input("Event Location: ")
         ev_desc = input("Event Description: ")
-
         # Format our ADD message
         ADDmsg = Proj1Lib.GenAdd(packetnum, user_tkn, ev_name, ev_date, ev_loc, ev_desc)
         client_sock.send(ADDmsg.encode())                       # Send our ADD message
         time.sleep(0.1)                                         # Await Server Feedback
-
         # Wait for server Success message
         while True:                                             
             try:
@@ -82,14 +79,12 @@ while loop_ctrl == True:
     elif choice == "2" or choice == "GET":
         print("---------- GET Method Employed ----------")
         ev_name = input("Enter the Event Name: ")
-
         # Format GET message
         GETmsg = Proj1Lib.GenGet(packetnum, user_tkn, ev_name)
-        client_sock.send(ADDmsg.encode())                       # Send our ADD message
+        client_sock.send(GETmsg.encode())                       # Send our GETS message
         time.sleep(0.1)                                         # Await Server Feedback
-
         # Wait for server Success message
-        while True:                                             
+        while True:
             try:
                 success = client_sock.recv(recieve_size)
                 # TEMP needs to be customized success handling
@@ -104,12 +99,10 @@ while loop_ctrl == True:
     elif choice == "3" or choice == "REM":
         print("---------- REM Method Employed ----------")
         ev_name = input("Enter the Event Name: ")
-
         # Format REM message
-        GETmsg = Proj1Lib.GenRem(packetnum, user_tkn, ev_name)
-        client_sock.send(ADDmsg.encode())                       # Send our ADD message
+        REMmsg = Proj1Lib.GenRem(packetnum, user_tkn, ev_name)
+        client_sock.send(REMmsg.encode())                       # Send our REM message
         time.sleep(0.1)                                         # Await Server Feedback
-
         # Wait for server Success message
         while True:                                             
             try:
