@@ -104,7 +104,8 @@ while loop_ctrl == True:
     elif choice == "3" or choice == "REM":
         print("---------- REM Method Employed ----------")
         ev_name = input("Enter the Event Name: ")
-        
+
+        # Format REM message
         GETmsg = Proj1Lib.GenGet(packetnum, user_tkn, ev_name)
         client_sock.send(ADDmsg.encode())                       # Send our ADD message
         time.sleep(0.1)                                         # Await Server Feedback
