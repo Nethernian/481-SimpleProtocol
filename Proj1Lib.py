@@ -19,7 +19,7 @@ an empty string.'''
 
 def GenSuccess(pktID, token, code, data=""):
     pktID = str(pktID)
-    return "SUCCESS" + "&" + pktID + "&" + token + "&" + code + "&" + data
+    return "SUCCESS" + "&" + pktID + "&" + token + "&" + code + "&" + data + "&"
 
 
 '''
@@ -29,7 +29,7 @@ sent by the client to the server. This is the only message that
 doesn't fit the traditional pktID-token format. '''
 def GenIdentify(pktID, user_ID):
     pktID = str(pktID)
-    return "IDENTIFY" + "&" + pktID + "&" + user_ID
+    return "IDENTIFY" + "&" + pktID + "&" + user_ID + "&"
 
 
 '''
@@ -40,7 +40,7 @@ date field are required, while the loc and desc fields are
 optional. Note that the name="all" message is reserved.'''
 def GenAdd(pktID, token, name, date, loc="", desc=""):
     pktID = str(pktID)
-    return "ADD" + "&" + pktID + "&" + token + "&" + name + "&" + date + "&" + loc + "&" + desc
+    return "ADD" + "&" + pktID + "&" + token + "&" + name + "&" + date + "&" + loc + "&" + desc + "&"
 
 
 '''
@@ -50,7 +50,7 @@ standard set of inputs, and the name data field. This function
 will then return the formed remove message.'''
 def GenRem(pktID, token, name):
     pktID = str(pktID)
-    return "REM" + "&" + pktID + "&" + token + "&" + name
+    return "REM" + "&" + pktID + "&" + token + "&" + name + "&"
 
 
 '''
@@ -60,7 +60,7 @@ fields: pktID, token, and name. This function will return the
 a properly formatted string.'''
 def GenGet(pktID, token, name):
     pktID = str(pktID)
-    return "GET" + "&" + pktID + "&" + token + "&" + name
+    return "GET" + "&" + pktID + "&" + token + "&" + name + "&"
 
 '''
 GenEnd(pktID, token)
@@ -69,7 +69,7 @@ fields: pktID and token. This function will return the correctly
 formatted array, which will be used to end the connection.'''
 def GenEnd(pktID, token):
     pktID = str(pktID)
-    return "END" + "&" + pktID + "&" + token
+    return "END" + "&" + pktID + "&" + token + "&"
 
 
 

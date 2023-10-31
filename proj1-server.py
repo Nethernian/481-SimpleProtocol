@@ -7,17 +7,16 @@
 # code used by this driver is contained in the file "Proj1Lib.py"
 
 # Import Statements
-import Proj1Lib
 from socket import *
-import errno
-import time
+import errno, time, random, Proj1Lib
+
 
 # define variables
 server_port = 4200                                              # generally unused port that the server can listen on.
 recieve_sze = 2048                                              # size of buffer to recieve packets
 
 # define data structures to contain server objects
-
+#dict(user_id = "Bobby", token = "", )
 
 # bind listener
 server_sock = socket(AF_INET, SOCK_STREAM)                      # Create the socket in stream mode
@@ -35,13 +34,38 @@ while True:
     while True:
         try:
             # handle incoming packet
-            incmsg = cli_sck.recv(recieve_sze)
-            incmsg = incmsg.decode()
-            if (len(incmsg) > 0):
-                print(incmsg)
-                successmsg = incmsg # NEED TO BE UPDATED SOON
-                # send correct SUCCESS packet to the user
-                cli_sck.send(successmsg.encode())
+            inc_msg = cli_sck.recv(recieve_sze)
+            inc_msg = inc_msg.decode()
+            print("Accepted packet: ", inc_msg)
+            if (len(inc_msg) > 0):
+                inc_arr = Proj1Lib.DigestPacket(inc_msg)
+                
+                if inc_arr[0] == "IDENTIFY":                    # Handle based on index [0]
+                    ret_tkn = str(hash(inc_arr[2]+str(random.randint(0,1000))))
+                    # NEED TO DETERMINE CORRECT <code> field
+                    success_rtn = Proj1Lib.GenSuccess(inc_arr[1], ret_tkn, "ok", '')
+                    print("sending: ", success_rtn, "to address: ", cli_addr)
+
+                elif inc_arr[0] == "GET":                       # Handle based on index [0]
+                    # NEED TO DETERMINE CORRECT <code> and <data> fields
+                    success_rtn = Proj1Lib.GenSuccess(inc_arr[1], inc_arr[2], "ok", 'PLACEHOLDER')
+
+                elif inc_arr[0] == "REM":                       # Handle based on index [0]
+                    # NEED TO DETERMINE CORRECT <code> field
+                    success_rtn = Proj1Lib.GenSuccess(inc_arr[1], inc_arr[2], "ok", '')
+
+                elif inc_arr[0] == "ADD":                       # Handle based on index [0]
+                    # Validate incoming token
+                    # Check for event name in user's calendar
+                    # Add or deny
+                    # send Success message # PLACEHOLDER -- Needs Edits
+                    success_rtn = Proj1Lib.GenSuccess(inc_arr[1], inc_arr[2], "ok", '')
+
+                elif inc_arr[0] == "END":                       # Handle based on index [0]
+                    # Set the user token to '' in the database - end the session
+                    break # Placeholder
+                
+                cli_sck.send(success_rtn.encode())
                 continue
             else:
                 break
