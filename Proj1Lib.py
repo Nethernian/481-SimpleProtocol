@@ -81,42 +81,42 @@ This function recieves the packet's string, and breaks it down
 following the specified method. This function will return an
 array to the user.'''
 def DigestPacket(pktstring):
-    packetdigest = pktstring.split("&")
+    packetdigest = pktstring.split("&")                         # divide at field to handle messages
     if packetdigest[0] == "IDENTIFY":                           # handle IDENTIFY messages
         print("Handling IDENTIFY Message")
-        packetdigest[2].replace("//E", "")
+        packetdigest[2].replace("//E", "")                      # remove the carriage return
         return [packetdigest[0], packetdigest[1], packetdigest[2]]
 
     elif packetdigest[0] == "ADD":                              # handle ADD messages
         print("Handling ADD Message")
-        packetdigest[6].replace("//E", "")
+        packetdigest[6].replace("//E", "")                      # remove the carriage return
         return [packetdigest[0], packetdigest[1], packetdigest[2], packetdigest[3], packetdigest[4], packetdigest[5], packetdigest[6]]
     
     elif packetdigest[0] == "REM":                              # handle REM messages
         print("Handling REM Message")
-        packetdigest[3].replace("//E", "")
+        packetdigest[3].replace("//E", "")                      # remove the carriage return
         return [packetdigest[0], packetdigest[1], packetdigest[2], packetdigest[3]]
     
     elif packetdigest[0] == "GET":                              # handle GET messages
         print("Handling GET Message")
-        packetdigest[3].replace("//E", "")
+        packetdigest[3].replace("//E", "")                      # remove the carriage return
         return [packetdigest[0], packetdigest[1], packetdigest[2], packetdigest[3]]
     
     elif packetdigest[0] == "END":                              # handle END messages
         print("Handling END Message")
-        packetdigest[2].replace("//E", "")
+        packetdigest[2].replace("//E", "")                      # remove the carriage return
         return [packetdigest[0], packetdigest[1], packetdigest[2]]
     
     elif packetdigest[0] == "SUCCESS":                          # handle SUCCESS messages
         print("Handling SUCCESS Message")
-        packetdigest[4].replace("//E", "")
+        packetdigest[4].replace("//E", "")                      # remove the carriage return
         return [packetdigest[0], packetdigest[1], packetdigest[2], packetdigest[3], packetdigest[4]]
     else:
         return 0
     
 
 '''
-handleSUC(successArr)
+handleSUC(successArr) -- Never actually used --
 This function is responsible for responding to the SUCCESS 
 message recieved by the client from the server. This function
 takes two arguments, the array from the success message, and a

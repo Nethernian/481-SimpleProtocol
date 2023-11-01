@@ -15,7 +15,7 @@ import errno, time, random, Proj1Lib
 server_port = 4200                                              # generally unused port that the server can listen on.
 recieve_sze = 2048                                              # size of buffer to recieve packets
 
-# define data structures to contain server objects
+# define data structures to contain server objects              # We are not doing this - data structures are out of the scope of the class
 #dict(user_id = "Bobby", token = "", )
 
 # bind listener
@@ -38,10 +38,14 @@ while True:
             inc_msg = inc_msg.decode()
             print("Accepted packet: ", inc_msg)
             
+            # Issue here handling the message based nature of TCP, as we ran into trouble getting the
+            # server to correctly handle the messages. As such the intended delimiter doesn't work
+            # correctly, and is expected to be at the end of the message.
 
-            if (len(inc_msg) > 0):
+            if (len(inc_msg) > 0 and inc_msg.find("//E")):
                 inc_arr = Proj1Lib.DigestPacket(inc_msg)
                 
+
                 if inc_arr[0] == "IDENTIFY":                    # Handle based on index [0]
                     ret_tkn = str(hash(inc_arr[2]+str(random.randint(0,1000))))
                     # NEED TO DETERMINE CORRECT <code> field
